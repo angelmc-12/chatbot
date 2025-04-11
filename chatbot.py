@@ -1,7 +1,3 @@
-!pip uninstall -qqy jupyterlab kfp  # Remove unused conflicting packages
-!pip install -qU "google-genai==1.7.0" "chromadb==0.6.3"
-!pip install -U -q langchain-community
-
 from google import genai
 from google.genai import types
 
