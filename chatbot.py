@@ -8,7 +8,7 @@ from chromadb import Documents, EmbeddingFunction, Embeddings
 from google.api_core import retry
 from kaggle_secrets import UserSecretsClient
 import chromadb
-
+import requests
 # Solicitar la clave API de Google al usuario
 GOOGLE_API_KEY = st.text_input("Ingresa tu clave API de Google:", type="password")
 
@@ -23,7 +23,19 @@ else:
     @st.cache_resource
     def cargar_documento():
         # Descargar el archivo PDF (solo si no está previamente descargado)
-        !wget https://raw.githubusercontent.com/angelmc-12/myfirstrepo/master/beca_pronabec.pdf
+        
+
+        url = "https://raw.githubusercontent.com/angelmc-12/myfirstrepo/master/beca_pronabec.pdf"
+        response = requests.get(url)
+
+        # Verifica si la solicitud fue exitosa
+        if response.status_code == 200:
+            with open('beca_pronabec.pdf', 'wb') as f:
+                f.write(response.content)
+            st.success("El archivo se descargó correctamente")
+        else:
+            st.error("Hubo un error al descargar el archivo")
+
         
         loader = PyPDFLoader('beca_pronabec.pdf')
         data = loader.load()
