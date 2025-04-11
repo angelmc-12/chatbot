@@ -3,3 +3,4 @@ chromadb==0.6.3
 langchain-community
 streamlit
 requests
+sqlite3 >= 3.35.0
